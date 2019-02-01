@@ -1,49 +1,42 @@
 package api;
 
+import adapters.Adapters;
+
+import java.util.concurrent.Future;
+
 public class APIInterface {
+
+    private Adapters adapter;
+
+
+    public APIInterface(Adapters adapter) {
+        this.adapter = adapter;
+    }
 
     public boolean store(Object data) {
 
-        //if tomp2p
-
-        //if kad
-
-        return true;
+        return adapter.store();
     }
 
-    public Object retrieve(Object key) {
+    public Future<Object> retrieve(Object key) {
 
-        //if tomp2p
-
-        //if kad
-
-        return "Data";
+        return adapter.retrieve(key);
     }
 
     public boolean put(Object data) {
 
-        //if tomp2p
-
-        //if kad
-
-        return true;
+        return adapter.put(data);
     }
 
     public Object get(Object key) {
 
-        //if tomp2p
 
-        //if kad
-
-        return "Data";
+        return adapter.get(key);
     }
 
     public boolean remove(Object data) {
 
-        //if tomp2p
 
-        //if kad
-
-        return true;
+        return adapter.remove(data);
     }
 }
