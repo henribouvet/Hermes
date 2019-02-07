@@ -12,6 +12,14 @@
     <orderEntry type="library" name="Maven: net.tomp2p:TomP2P:4.x" level="project" />
     <orderEntry type="library" name="Maven: net.tomp2p:tomp2p-{module}:5.0-Beta8" level="project" />
     <orderEntry type="library" name="Maven: net.tomp2p:tomp2p-dht:5.0-Beta8" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-transport:4.0.28.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.5" level="project" />
     <orderEntry type="library" name="Maven: net.tomp2p:tomp2p-core:5.0-Beta8" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-buffer:4.0.28.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-common:4.0.28.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.jboss.weld.se:weld-se:2.4.8.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.sonatype.sisu:sisu-inject-bean:1.4.2" level="project" />
+    <orderEntry type="library" name="Maven: org.sonatype.sisu:sisu-guice:noaop:2.1.7" level="project" />
+    <orderEntry type="library" name="Maven: javax.inject:javax.inject:1" level="project" />
   </component>
 </module>
