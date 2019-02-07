@@ -1,5 +1,6 @@
 package adapters;
 
+import java.io.Serializable;
 import java.util.concurrent.Future;
 
 public interface Adapters {
@@ -14,7 +15,7 @@ public interface Adapters {
 
     boolean put(Object data);
 
-    Object get(Object key);
+    Future<Object> get(Object key);
 
     boolean remove(Object data);
 }

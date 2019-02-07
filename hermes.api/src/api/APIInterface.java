@@ -12,6 +12,18 @@ public class APIInterface<K extends Serializable, V extends Serializable> {
     private Adapters adapter;
 
 
+    public boolean put(V value) {
+        return adapter.put(value);
+    }
+
+
+    public Future<V> get(K key) {
+        return (Future<V>) adapter.get(key);
+    }
+
+    public boolean remove(V value) {
+        return adapter.remove(value);
+    }
 
 
 
