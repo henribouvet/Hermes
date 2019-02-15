@@ -29,6 +29,7 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+<<<<<<< HEAD
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
             <version>3.0.2</version>
@@ -37,6 +38,21 @@
             <groupId>org.jboss.weld.se</groupId>
             <artifactId>weld-se-core</artifactId>
             <version>3.0.2.Final</version>
+=======
+            <groupId>org.jboss.weld.se</groupId>
+            <artifactId>weld-se</artifactId>
+            <version>2.4.8.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.sonatype.sisu</groupId>
+            <artifactId>sisu-inject-bean</artifactId>
+            <version>1.4.2</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
+>>>>>>> upstream/master
         </dependency>
     </dependencies>
 

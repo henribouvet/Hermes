@@ -1,49 +1,30 @@
 package api;
 
-public class APIInterface {
+import adapters.Adapters;
 
-    public boolean store(Object data) {
+import javax.inject.Inject;
+import java.io.Serializable;
+import java.util.concurrent.Future;
 
-        //if tomp2p
+public class APIInterface<K extends Serializable, V extends Serializable> {
 
-        //if kad
+    @Inject
+    private Adapters adapter;
 
-        return true;
+
+    public boolean put(V value) {
+        return adapter.put(value);
     }
 
-    public Object retrieve(Object key) {
 
-        //if tomp2p
-
-        //if kad
-
-        return "Data";
+    public Future<V> get(K key) {
+        return (Future<V>) adapter.get(key);
     }
 
-    public boolean put(Object data) {
-
-        //if tomp2p
-
-        //if kad
-
-        return true;
+    public boolean remove(V value) {
+        return adapter.remove(value);
     }
 
-    public Object get(Object key) {
 
-        //if tomp2p
 
-        //if kad
-
-        return "Data";
-    }
-
-    public boolean remove(Object data) {
-
-        //if tomp2p
-
-        //if kad
-
-        return true;
-    }
 }

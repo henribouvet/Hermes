@@ -29,6 +29,7 @@
             <version>2.0</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>net.tomp2p</groupId>
             <artifactId>tomp2p-all</artifactId>
