@@ -7,29 +7,9 @@
     <groupId>org.univ-nantes</groupId>
     <artifactId>hermes.api</artifactId>
     <version>0.1.0</version>
-    <properties>
-        <tomp2p.version>5.0-Beta8</tomp2p.version>
-    </properties>
+
     <dependencies>
         <dependency>
-            <groupId>net.tomp2p</groupId>
-            <artifactId>tomp2p-all</artifactId>
-            <version>${tomp2p.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.tomp2p</groupId>
-            <artifactId>tomp2p-dht</artifactId>
-            <version>${tomp2p.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.tomp2p</groupId>
-            <artifactId>tomp2p-core</artifactId>
-            <version>${tomp2p.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-<<<<<<< HEAD
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
             <version>3.0.2</version>
@@ -38,7 +18,6 @@
             <groupId>org.jboss.weld.se</groupId>
             <artifactId>weld-se-core</artifactId>
             <version>3.0.2.Final</version>
-=======
             <groupId>org.jboss.weld.se</groupId>
             <artifactId>weld-se</artifactId>
             <version>2.4.8.Final</version>
@@ -52,7 +31,6 @@
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
             <version>1</version>
->>>>>>> upstream/master
         </dependency>
     </dependencies>
 

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>hermes</artifactId>
+        <groupId>org.univ-nantes</groupId>
+        <version>0.1.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>tomp2P-adapter</artifactId>
+    <properties>
+        <tomp2p.version>5.0-Beta8</tomp2p.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.univ-nantes</groupId>
+            <artifactId>hermes.api</artifactId>
+            <version>0.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>net.tomp2p</groupId>
+            <artifactId>tomp2p-all</artifactId>
+            <version>${tomp2p.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.tomp2p</groupId>
+            <artifactId>tomp2p-dht</artifactId>
+            <version>${tomp2p.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.tomp2p</groupId>
+            <artifactId>tomp2p-core</artifactId>
+            <version>${tomp2p.version}</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+</project>

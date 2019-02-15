@@ -9,6 +9,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>hermes.api</module>
+        <module>tomp2P-adapter</module>
+        <module>kademlia-adapter</module>
     </modules>
 
     <properties>
