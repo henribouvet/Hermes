@@ -7,30 +7,17 @@
     <groupId>org.univ-nantes</groupId>
     <artifactId>hermes.api</artifactId>
     <version>0.1.0</version>
+
     <dependencies>
         <dependency>
-            <groupId>net.tomp2p</groupId>
-            <artifactId>TomP2P</artifactId>
-            <version>4.x</version>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>3.0.2</version>
         </dependency>
         <dependency>
-            <groupId>net.tomp2p</groupId>
-            <artifactId>tomp2p-{module}</artifactId>
-            <version>5.0-Beta8</version>
-        </dependency>
-        <dependency>
-            <groupId>net.tomp2p</groupId>
-            <artifactId>tomp2p-dht</artifactId>
-            <version>5.0-Beta8</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.tomp2p</groupId>
-            <artifactId>tomp2p-core</artifactId>
-            <version>5.0-Beta8</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
+            <groupId>org.jboss.weld.se</groupId>
+            <artifactId>weld-se-core</artifactId>
+            <version>3.0.2.Final</version>
             <groupId>org.jboss.weld.se</groupId>
             <artifactId>weld-se</artifactId>
             <version>2.4.8.Final</version>
