@@ -1,6 +1,6 @@
-package org.atlanmod.hermes;
+package fr.univnantes.hermes.api;
 
-import org.atlanmod.hermes.base.NullDHTService;
+import fr.univnantes.hermes.api.base.NullDHTService;
 import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
 

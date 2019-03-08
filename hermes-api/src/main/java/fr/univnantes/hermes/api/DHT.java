@@ -1,4 +1,6 @@
-package org.atlanmod.hermes;/*
+package fr.univnantes.hermes.api;
+
+/*
  * Copyright (c) 2016-2017 Atlanmod INRIA LINA Mines Nantes.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -12,6 +14,7 @@ package org.atlanmod.hermes;/*
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.concurrent.Future;
+
 import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
@@ -26,7 +29,7 @@ public interface DHT<K extends Serializable, V extends Serializable> {
     /**
      * Stores an object in this DHT.
      */
-    void store(K key, V value) throws IOException;
+    boolean store(K key, V value) throws IOException;
 
     /**
      * Retrieves an object from this DHT.
@@ -37,4 +40,11 @@ public interface DHT<K extends Serializable, V extends Serializable> {
      * Removes the value store at this key and the key itself from this DHT.
      */
     void remove(K key) throws IOException;
+
+
+    /**
+     *
+     * @return The ownerId of the table
+     */
+    String getOwnerId();
 }

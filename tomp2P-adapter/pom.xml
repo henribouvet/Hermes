@@ -17,7 +17,7 @@
     <dependencies>
         <dependency>
             <groupId>org.univ-nantes</groupId>
-            <artifactId>hermes.api</artifactId>
+            <artifactId>hermes-api</artifactId>
             <version>0.1.0</version>
         </dependency>
         <dependency>

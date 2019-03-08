@@ -1,34 +1,30 @@
 package fr.univnantes.hermes.kademlia;
 
-import kademlia.JKademliaNode;
-import kademlia.KademliaNode;
-import org.atlanmod.hermes.DHT;
-import kademlia.node.KademliaId;
-import kademlia.simulations.DHTContentImpl;
+import fr.univnantes.hermes.api.DHT;
 
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.concurrent.Future;
 
 
-// The Kademlia implementation has been downloaded locally, and put as a submodule in kademlia-adapter
+// The Kademlia implementation has been downloaded locally, and store as a submodule in kademlia-adapter
 
 public class KademliaAdapter implements DHT<Serializable, Serializable>{
 
-    KademliaNode kad;
-    int ownerId = 0;
+    private DHT kadDHT;
+    private KademliaService kadService;
 
     public KademliaAdapter()  throws IOException {
-        kad = new JKademliaNode(nextOwnerId(), new KademliaId(), 10);
+
+        kadService = new KademliaService();
+
+        kadDHT = kadService.createDHT();
     }
 
-    private String nextOwnerId() {
-        return "owner" + ownerId++;
-    }
 
 
     public boolean store(Object data) throws IOException {
-        return 0 < kad.put(new DHTContentImpl(kad.getOwnerId(), data.toString()));
+        return kadDHT.store(kadDHT.getOwnerId(), data.toString());
     }
 
     public Future<Object> retrieve(Object key) {
@@ -39,8 +35,9 @@ public class KademliaAdapter implements DHT<Serializable, Serializable>{
         return false;
     }
 
-    public void store(Serializable key, Serializable value) throws IOException {
+    public boolean store(Serializable key, Serializable value) throws IOException {
 
+        return false;
     }
 
     public Future<Serializable> retrieve(Serializable key) throws IOException {
@@ -49,5 +46,10 @@ public class KademliaAdapter implements DHT<Serializable, Serializable>{
 
     public void remove(Serializable key) throws IOException {
 
+    }
+
+    @Override
+    public String getOwnerId() {
+        return kadDHT.getOwnerId();
     }
 }

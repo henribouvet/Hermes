@@ -1,9 +1,8 @@
 package fr.univnantes.hermes.tomp2p;
 
 import net.tomp2p.p2p.Peer;
-import net.tomp2p.peers.Number160;
-import org.atlanmod.hermes.DHT;
-import org.atlanmod.hermes.DHTService;
+import fr.univnantes.hermes.api.DHT;
+import fr.univnantes.hermes.api.DHTService;
 
 import java.io.Serializable;
 

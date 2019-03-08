@@ -1,6 +1,7 @@
-package api;
+package fr.univnantes.hermes.api.api;
 
-import adapters.Adapters;
+
+import fr.univnantes.hermes.api.adapters.Adapters;
 
 import javax.inject.Inject;
 import java.io.IOException;
@@ -14,11 +15,11 @@ public class APIInterface<K extends Serializable, V extends Serializable> {
 
 
     public boolean put(V value) throws IOException {
-        return adapter.put(value);
+        return adapter.store(value);
     }
 
-    public Future<V> get(K key) {
-        return (Future<V>) adapter.get(key);
+    public Future<Object> get(K key) {
+        return adapter.get(key);
     }
 
     public boolean remove(V value) {

@@ -1,7 +1,7 @@
-package org.atlanmod.hermes.base;
+package fr.univnantes.hermes.api.base;
 
-import org.atlanmod.hermes.DHT;
-import org.atlanmod.hermes.DHTService;
+import fr.univnantes.hermes.api.DHT;
+import fr.univnantes.hermes.api.DHTService;
 
 import java.io.Serializable;
 

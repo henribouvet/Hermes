@@ -1,9 +1,7 @@
 package fr.univnantes.hermes.tomp2p;
 
-import net.tomp2p.dht.FutureDHT;
 import net.tomp2p.p2p.Peer;
-import net.tomp2p.peers.Number160;
-import org.atlanmod.hermes.DHT;
+import fr.univnantes.hermes.api.DHT;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -35,9 +33,10 @@ public class TomP2PAdapter implements DHT<Serializable, Serializable> {
         return false;
     }
 
-    public void store(Serializable key, Serializable value) throws IOException {
+    public boolean store(Serializable key, Serializable value) throws IOException {
 
-        //peer.put(Number160.createHash(key)).setObject(value).build();
+        //peer.store(Number160.createHash(key)).setObject(value).build();
+        return false;
 
     }
 
@@ -48,5 +47,9 @@ public class TomP2PAdapter implements DHT<Serializable, Serializable> {
 
     public void remove(Serializable key) throws IOException {
 
+    }
+
+    public String getOwnerId() {
+        return null;
     }
 }
