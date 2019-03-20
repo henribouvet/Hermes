@@ -37,6 +37,12 @@
             <version>2.8.5</version>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.univ-nantes</groupId>
+            <artifactId>Kademlia</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 

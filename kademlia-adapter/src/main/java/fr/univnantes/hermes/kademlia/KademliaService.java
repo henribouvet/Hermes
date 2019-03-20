@@ -1,44 +1,41 @@
 package fr.univnantes.hermes.kademlia;
 
-import Kademlia.src.kademlia.DefaultConfiguration;
-import Kademlia.src.kademlia.dht.JKademliaStorageEntry;
-import Kademlia.src.kademlia.dht.KademliaDHT;
-import Kademlia.src.kademlia.dht.KademliaStorageEntryMetadata;
+
 import fr.univnantes.hermes.api.DHT;
 import fr.univnantes.hermes.api.DHTService;
-import fr.univnantes.hermes.api.base.HermesDHT;
 import fr.univnantes.hermes.api.base.HermesDHTService;
-import fr.univnantes.hermes.api.base.NullDHT;
+import kademlia.DefaultConfiguration;
+import kademlia.dht.JKademliaStorageEntry;
+import kademlia.dht.KademliaDHT;
+import kademlia.dht.KademliaStorageEntryMetadata;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 
 public class KademliaService implements DHTService {
-
     private int ownerId = 0;
 
+    public KademliaService() {
+    }
 
-    @Override
-    public <K extends Serializable, V extends Serializable> DHT<K, V> createDHT() throws IOException {
-        String ownerId = nextOwnerId();
-
+    public DHT createDHT() throws IOException {
+        String ownerId = this.nextOwnerId();
         DHT<String, ArrayList<JKademliaStorageEntry>> dht = (new HermesDHTService()).createDHT(ownerId);
+        KademliaDHT kademliaDHT = new kademlia.dht.DHT(ownerId, new DefaultConfiguration());
+        Iterator var4 = kademliaDHT.getStorageEntries().iterator();
 
-        KademliaDHT kademliaDHT = new Kademlia.src.kademlia.dht.DHT(ownerId, new DefaultConfiguration());
-        for (KademliaStorageEntryMetadata entryMetadata : kademliaDHT.getStorageEntries()) {
-            ArrayList<JKademliaStorageEntry> list = (ArrayList<JKademliaStorageEntry>) Arrays.asList(kademliaDHT.get(entryMetadata));
+        while(var4.hasNext()) {
+            KademliaStorageEntryMetadata entryMetadata = (KademliaStorageEntryMetadata)var4.next();
+            ArrayList<JKademliaStorageEntry> list = (ArrayList)Arrays.asList(kademliaDHT.get(entryMetadata));
             dht.store(ownerId, list);
         }
 
-        return (DHT<K, V>) dht;
+        return dht;
     }
 
-
-
-
     private String nextOwnerId() {
-        return "owner" + ownerId++;
+        return "owner" + this.ownerId++;
     }
 }
