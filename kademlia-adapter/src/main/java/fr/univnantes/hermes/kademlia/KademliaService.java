@@ -24,11 +24,9 @@ public class KademliaService implements DHTService {
         String ownerId = this.nextOwnerId();
         DHT<String, ArrayList<JKademliaStorageEntry>> dht = (new HermesDHTService()).createDHT(ownerId);
         KademliaDHT kademliaDHT = new kademlia.dht.DHT(ownerId, new DefaultConfiguration());
-        Iterator var4 = kademliaDHT.getStorageEntries().iterator();
 
-        while(var4.hasNext()) {
-            KademliaStorageEntryMetadata entryMetadata = (KademliaStorageEntryMetadata)var4.next();
-            ArrayList<JKademliaStorageEntry> list = (ArrayList)Arrays.asList(kademliaDHT.get(entryMetadata));
+        for (KademliaStorageEntryMetadata entryMetadata : kademliaDHT.getStorageEntries()) {
+            ArrayList<JKademliaStorageEntry> list = (ArrayList) Arrays.asList(kademliaDHT.get(entryMetadata));
             dht.store(ownerId, list);
         }
 

@@ -3,13 +3,12 @@ package fr.univnantes.hermes.api.base;
 import fr.univnantes.hermes.api.DHT;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.Future;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 public class HermesDHT<K extends Serializable, V extends Serializable> implements DHT<K, V> {
-    private Map<Serializable, Serializable> map = new HashMap();
+    private Map<Serializable, List<Serializable>> map = new HashMap<Serializable, List<Serializable>>();
     private String ownerId;
 
     public HermesDHT(String ownerId) {
@@ -17,17 +16,22 @@ public class HermesDHT<K extends Serializable, V extends Serializable> implement
     }
 
     @ParametersAreNonnullByDefault
-    public boolean store(Serializable key, Serializable value) throws IOException {
-        return value.equals(this.map.put(key, value));
+    public boolean store(Serializable key, Serializable value) {
+        if (map.containsKey(key)) {
+            return map.get(key).add(value);
+        }
+        List<Serializable> temp = new ArrayList<Serializable>();
+        temp.add(value);
+        return value.equals(this.map.put(key, temp));
     }
 
     @ParametersAreNonnullByDefault
-    public Future retrieve(Serializable key) throws IOException {
-        return (Future)this.map.get(key);
+    public Future<V> retrieve(Serializable key) {
+        return (Future<V>) this.map.get(key);
     }
 
     @ParametersAreNonnullByDefault
-    public void remove(Serializable key) throws IOException {
+    public void remove(Serializable key) {
         this.map.remove(key);
     }
 
