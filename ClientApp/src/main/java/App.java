@@ -11,8 +11,8 @@ public class App {
         System.out.println("Hello World !");
         Peer peer;
         FutureDHT dht;
-        KademliaAdapter kademliaAdapter = new KademliaAdapter();
-        kademliaAdapter.store("Hello");
+        KademliaAdapter kademlia = new KademliaAdapter();
+        kademlia.store("Hello");
         return;
     }
 }
