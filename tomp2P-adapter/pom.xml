@@ -37,6 +37,7 @@
             <version>${tomp2p.version}</version>
             <scope>compile</scope>
         </dependency>
+
     </dependencies>
 
 </project>

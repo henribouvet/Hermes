@@ -9,12 +9,15 @@ import java.util.concurrent.Future;
 
 public class TomP2PAdapter implements DHT<Serializable, Serializable> {
     private Peer peer;
+    private DHT tomp2pDHT;
+    private TomP2PService tomp2pService = new TomP2PService();
 
-    public TomP2PAdapter(Peer peer) {
+    public TomP2PAdapter() throws IOException {
+        tomp2pDHT = tomp2pService.createDHT();
     }
 
-    public boolean store() {
-        return false;
+    public boolean store(Serializable data) throws IOException {
+        return this.tomp2pDHT.store(this.tomp2pDHT.getOwnerId(), data.toString());
     }
 
     public Future<Object> retrieve(Object key) {
