@@ -13,6 +13,7 @@ public class App {
         FutureDHT dht;
         KademliaAdapter kademlia = new KademliaAdapter();
         kademlia.store("Hello");
+        kademlia.store("World");
         return;
     }
 }

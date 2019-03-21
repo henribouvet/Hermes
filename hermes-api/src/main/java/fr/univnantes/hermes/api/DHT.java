@@ -13,8 +13,10 @@ package fr.univnantes.hermes.api;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.List;
 import java.util.concurrent.Future;
 
+import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
@@ -29,16 +31,19 @@ public interface DHT<K extends Serializable, V extends Serializable> {
     /**
      * Stores an object in this DHT.
      */
+    @ParametersAreNonnullByDefault
     boolean store(K key, V value) throws IOException;
 
     /**
      * Retrieves an object from this DHT.
      */
+    @ParametersAreNonnullByDefault
     Future<V> retrieve(K key) throws IOException;
 
     /**
      * Removes the value store at this key and the key itself from this DHT.
      */
+    @ParametersAreNonnullByDefault
     void remove(K key) throws IOException;
 
 

@@ -1,6 +1,8 @@
 package fr.univnantes.hermes.kademlia;
 
 import fr.univnantes.hermes.api.DHT;
+
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.concurrent.Future;
@@ -25,16 +27,20 @@ public class KademliaAdapter implements DHT<Serializable, Serializable> {
         return false;
     }*/
 
+    @ParametersAreNonnullByDefault
     public boolean store(Serializable key, Serializable value) throws IOException {
         return this.kadDHT.store(key,value);
     }
 
+    @ParametersAreNonnullByDefault
     public Future<Serializable> retrieve(Serializable key) throws IOException {
         return this.kadDHT.retrieve(key);
     }
 
-    public void remove(Serializable key) throws IOException {
+    @ParametersAreNonnullByDefault
+    public void remove(Serializable key) {
     }
+
 
     public String getOwnerId() {
         return this.kadDHT.getOwnerId();
