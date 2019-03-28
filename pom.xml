@@ -12,6 +12,7 @@
         <module>hermes-api</module>
         <module>tomp2P-adapter</module>
         <module>kademlia-adapter</module>
+        <module>mqtt</module>
     </modules>
 
     <properties>
