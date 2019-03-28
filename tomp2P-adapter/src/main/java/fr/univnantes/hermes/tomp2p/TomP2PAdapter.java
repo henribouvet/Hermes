@@ -31,7 +31,8 @@ public class TomP2PAdapter implements DHT<Serializable, Serializable> {
     }
 
     public boolean store(Serializable data) throws IOException {
-        return this.tomp2pDHT.store(this.tomp2pDHT.getOwnerId(), data.toString());
+        //return this.tomp2pDHT.store(this.tomp2pDHT.getOwnerId(), data.toString());
+        return false;
     }
 
     public String retrieve(Object key) {
@@ -52,19 +53,19 @@ public class TomP2PAdapter implements DHT<Serializable, Serializable> {
         return false;
     }
 
-    public boolean store(Serializable key, Serializable value) throws IOException {
+    public Serializable store(Serializable key, Serializable value) throws IOException {
 
         //peer.store(Number160.createHash(key)).setObject(value).build();
-        return false;
+        return null;
 
     }
 
-    public Future<Serializable> retrieve(Serializable key) throws IOException {
+    public Serializable retrieve(Serializable key) throws IOException {
         //FutureDHT<Serializable> answer = peer.get(Number160.createHash(“key”)).build();
         System.out.println("VALEUR DE NUMBER KEY"+(Number160)key);
         fg = peer.get((Number160)key).start();
         System.out.println("VALEUR DE DATA"+fg.data());
-        return (Future<Serializable>) fg.data(); //new FutureAdapter(answer);
+        return (Serializable) fg.data(); //new FutureAdapter(answer);
     }
 
     public void remove(Serializable key) throws IOException {
