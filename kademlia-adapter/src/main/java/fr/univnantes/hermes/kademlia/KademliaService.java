@@ -12,7 +12,6 @@ import kademlia.dht.KademliaStorageEntryMetadata;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 
 public class KademliaService implements DHTService {
     private int ownerId = 0;
@@ -21,16 +20,7 @@ public class KademliaService implements DHTService {
     }
 
     public DHT createDHT() throws IOException {
-        String ownerId = this.nextOwnerId();
-        DHT<String, ArrayList<JKademliaStorageEntry>> dht = (new HermesDHTService()).createDHT(ownerId);
-        KademliaDHT kademliaDHT = new kademlia.dht.DHT(ownerId, new DefaultConfiguration());
-
-        for (KademliaStorageEntryMetadata entryMetadata : kademliaDHT.getStorageEntries()) {
-            ArrayList<JKademliaStorageEntry> list = (ArrayList) Arrays.asList(kademliaDHT.get(entryMetadata));
-            dht.store(ownerId, list);
-        }
-
-        return dht;
+        return new KademliaAdapter();
     }
 
     private String nextOwnerId() {

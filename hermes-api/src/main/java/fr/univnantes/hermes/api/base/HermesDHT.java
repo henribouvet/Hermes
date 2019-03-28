@@ -8,7 +8,7 @@ import java.util.concurrent.Future;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 public class HermesDHT<K extends Serializable, V extends Serializable> implements DHT<K, V> {
-    private Map<Serializable, List<Serializable>> map = new HashMap<Serializable, List<Serializable>>();
+    private Map<Serializable, Serializable> map = new HashMap<Serializable, Serializable>();
     private String ownerId;
 
     public HermesDHT(String ownerId) {
@@ -17,12 +17,9 @@ public class HermesDHT<K extends Serializable, V extends Serializable> implement
 
     @ParametersAreNonnullByDefault
     public boolean store(Serializable key, Serializable value) {
-        if (map.containsKey(key)) {
-            return map.get(key).add(value);
-        }
-        List<Serializable> temp = new ArrayList<Serializable>();
-        temp.add(value);
-        return value.equals(this.map.put(key, temp));
+
+        return value.equals(this.map.put(UUID.randomUUID().toString().replace("-",""), value));
+        //return value.equals(this.map.put(new Random().nextInt(), value));
     }
 
     @ParametersAreNonnullByDefault
@@ -38,4 +35,5 @@ public class HermesDHT<K extends Serializable, V extends Serializable> implement
     public String getOwnerId() {
         return this.ownerId;
     }
+
 }

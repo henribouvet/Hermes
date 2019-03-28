@@ -1,23 +1,25 @@
 package fr.univnantes.hermes.kademlia;
 
 import fr.univnantes.hermes.api.DHT;
+import kademlia.JKademliaNode;
+import kademlia.dht.JKademliaStorageEntry;
+import kademlia.dht.KademliaDHT;
+import kademlia.dht.KademliaStorageEntry;
+import kademlia.node.KademliaId;
+import kademlia.simulations.DHTContentImpl;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Random;
 import java.util.concurrent.Future;
 
 public class KademliaAdapter implements DHT<Serializable, Serializable> {
-    private DHT kadDHT;
-    private KademliaService kadService = new KademliaService();
+    private JKademliaNode kad = new JKademliaNode("owner0",new KademliaId("dataDataDataDataData"),15);
 
     public KademliaAdapter() throws IOException {
-        this.kadDHT = this.kadService.createDHT();
     }
 
-    public boolean store(Serializable data) throws IOException {
-        return this.kadDHT.store(this.kadDHT.getOwnerId(), data.toString());
-    }
 
     /*public Future<Object> retrieve(Object key) {
         return null;
@@ -29,12 +31,13 @@ public class KademliaAdapter implements DHT<Serializable, Serializable> {
 
     @ParametersAreNonnullByDefault
     public boolean store(Serializable key, Serializable value) throws IOException {
-        return this.kadDHT.store(key,value);
+        JKademliaStorageEntry entry = new JKademliaStorageEntry(new DHTContentImpl());
+        return 0 < this.kad.put(entry);
     }
 
     @ParametersAreNonnullByDefault
     public Future<Serializable> retrieve(Serializable key) throws IOException {
-        return this.kadDHT.retrieve(key);
+        return null;//this.kad.retrieve(key);
     }
 
     @ParametersAreNonnullByDefault
@@ -43,6 +46,6 @@ public class KademliaAdapter implements DHT<Serializable, Serializable> {
 
 
     public String getOwnerId() {
-        return this.kadDHT.getOwnerId();
+        return this.kad.getOwnerId();
     }
 }

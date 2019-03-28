@@ -3,7 +3,6 @@ package fr.univnantes.hermes.tomp2p;
 import io.netty.util.internal.ThreadLocalRandom;
 import net.tomp2p.dht.FutureDHT;
 import net.tomp2p.peers.Number160;
-import net.tomp2p.dht.;
 import net.tomp2p.p2p.Peer;
 import net.tomp2p.p2p.PeerBuilder;
 import fr.univnantes.hermes.api.DHT;
@@ -23,7 +22,7 @@ public class TomP2PService implements DHTService {
 
     }
 
-    public  DHT createDHT() throws IOException {
+    public DHT createDHT() throws IOException {
 
         String ownerId = this.nextOwnerId();
         Random rnd = new Random( 43L );
