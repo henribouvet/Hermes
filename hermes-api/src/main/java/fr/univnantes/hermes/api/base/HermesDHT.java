@@ -1,7 +1,7 @@
 package fr.univnantes.hermes.api.base;
 
 import fr.univnantes.hermes.api.DHT;
-import java.io.IOException;
+
 import java.io.Serializable;
 import java.util.*;
 import java.util.concurrent.Future;
@@ -16,15 +16,15 @@ public class HermesDHT<K extends Serializable, V extends Serializable> implement
     }
 
     @ParametersAreNonnullByDefault
-    public boolean store(Serializable key, Serializable value) {
+    public String store(Serializable key, Serializable value) {
 
-        return value.equals(this.map.put(UUID.randomUUID().toString().replace("-",""), value));
+        return "";//value.equals(this.map.put(UUID.randomUUID().toString().replace("-",""), value));
         //return value.equals(this.map.put(new Random().nextInt(), value));
     }
 
     @ParametersAreNonnullByDefault
-    public Future<V> retrieve(Serializable key) {
-        return (Future<V>) this.map.get(key);
+    public Serializable retrieve(Serializable key) {
+        return this.map.get(key);
     }
 
     @ParametersAreNonnullByDefault

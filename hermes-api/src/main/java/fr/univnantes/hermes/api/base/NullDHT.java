@@ -4,16 +4,15 @@ import fr.univnantes.hermes.api.DHT;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.concurrent.Future;
 
 public class NullDHT<K extends Serializable, V extends Serializable> implements DHT<K, V > {
 
-    public boolean store(K key, V value) throws IOException {
+    public K store(K key, V value) throws IOException {
 
-        return false;
+        return null;
     }
 
-    public Future<V> retrieve(K key) throws IOException {
+    public Serializable retrieve(K key) throws IOException {
         return null;
     }
 
