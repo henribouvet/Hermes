@@ -28,11 +28,11 @@ public class KademliaAdapter implements DHT<Serializable, Serializable> {
 
     @ParametersAreNonnullByDefault
     public Serializable store(Serializable key, Serializable value) throws IOException {
-        KadContent content = new DHTContentImpl(kad.getOwnerId(), value.toString());
+        KadContent content = new DHTContentImpl(new KademliaId(key.toString().), value.toString());
         JKademliaStorageEntry entry = new JKademliaStorageEntry(content, new StorageEntryMetadata(content));
         this.kad.put(entry);
         // To get the usable KademliaId
-        return entry.getContentMetadata().getKey();
+        return content.getKey();
     }
 
     @ParametersAreNonnullByDefault

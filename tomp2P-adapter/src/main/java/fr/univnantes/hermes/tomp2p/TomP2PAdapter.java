@@ -1,21 +1,22 @@
-package fr.univnantes.hermes.tomp2p;
 
-import fr.univnantes.hermes.api.base.HermesDHTService;
-import net.tomp2p.dht.FutureDHT;
-import net.tomp2p.dht.FutureGet;
-import net.tomp2p.dht.PeerDHT;
-import net.tomp2p.futures.BaseFuture;
-import net.tomp2p.p2p.Peer;
-import fr.univnantes.hermes.api.DHT;
-import net.tomp2p.p2p.PeerBuilder;
-import net.tomp2p.peers.Number160;
+        package fr.univnantes.hermes.tomp2p;
 
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.Random;
-import java.util.concurrent.Future;
-import net.tomp2p.dht.DHTBuilder;
-import net.tomp2p.storage.Data;
+        import fr.univnantes.hermes.api.base.HermesDHTService;
+        import net.tomp2p.dht.FutureDHT;
+        import net.tomp2p.dht.FutureGet;
+        import net.tomp2p.dht.PeerDHT;
+        import net.tomp2p.futures.BaseFuture;
+        import net.tomp2p.p2p.Peer;
+        import fr.univnantes.hermes.api.DHT;
+        import net.tomp2p.p2p.PeerBuilder;
+        import net.tomp2p.peers.Number160;
+
+        import java.io.IOException;
+        import java.io.Serializable;
+        import java.util.Random;
+        import java.util.concurrent.Future;
+        import net.tomp2p.dht.DHTBuilder;
+        import net.tomp2p.storage.Data;
 
 public class TomP2PAdapter implements DHT<Serializable, Serializable> {
 
@@ -27,10 +28,11 @@ public class TomP2PAdapter implements DHT<Serializable, Serializable> {
     public TomP2PAdapter(PeerDHT peerdht) throws IOException {
 
         this.peer = peerdht;
-      //  dhtbuilder = new DHTBuilder(peer) ;
+        //  dhtbuilder = new DHTBuilder(peer) ;
     }
 
     public boolean store(Serializable data) throws IOException {
+
         //return this.tomp2pDHT.store(this.tomp2pDHT.getOwnerId(), data.toString());
         return false;
     }
@@ -53,10 +55,14 @@ public class TomP2PAdapter implements DHT<Serializable, Serializable> {
         return false;
     }
 
-    public Serializable store(Serializable key, Serializable value) throws IOException {
-
+    public boolean store(Serializable key, Serializable value) throws IOException {
+        if (key.getClass() == Number160.class) {
+            f = peer.put((Number160) key).data(new Data(value)).start();
+        }else{
+            f = peer.put(new Number160((Integer) key)).data(new Data(value)).start();
+        }
         //peer.store(Number160.createHash(key)).setObject(value).build();
-        return null;
+        return true;
 
     }
 
