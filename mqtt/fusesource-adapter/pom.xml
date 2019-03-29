@@ -17,5 +17,12 @@
             <artifactId>mqtt-client</artifactId>
             <version>1.12</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.univ-nantes</groupId>
+            <artifactId>hermes-api</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 </project>
