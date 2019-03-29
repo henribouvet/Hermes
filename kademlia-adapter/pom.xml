@@ -28,7 +28,7 @@
         <dependency>
             <groupId>org.univ-nantes</groupId>
             <artifactId>hermes-api</artifactId>
-            <version>0.1.0</version>
+            <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -39,7 +39,7 @@
         </dependency>
 
         <dependency>
-            <groupId>org.univ-nantes</groupId>
+            <groupId>org.atlanmod.kademlia</groupId>
             <artifactId>Kademlia</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
