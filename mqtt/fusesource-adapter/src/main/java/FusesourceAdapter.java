@@ -1,18 +1,17 @@
-import fr.univnantes.hermes.api.Mqtt;
+import fr.univnantes.hermes.api.MQTT;
 import org.fusesource.mqtt.client.BlockingConnection;
-import org.fusesource.mqtt.client.MQTT;
 import org.fusesource.mqtt.client.QoS;
 import org.fusesource.mqtt.client.Topic;
 
-public class Adapteurfusesource implements Mqtt {
-    private MQTT client;
+public class FusesourceAdapter implements MQTT {
+    private org.fusesource.mqtt.client.MQTT client;
     private String broker;
     private String clientId;
     private int Qos = 2;
     private String topic;
     private BlockingConnection connection;
 
-    public Adapteurfusesource() {
+    public FusesourceAdapter() {
         this.broker = "tcp://iot.eclipse.org:1883";
         this.clientId = "test";
         this.topic = "MQTT Examples";

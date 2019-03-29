@@ -1,3 +1,4 @@
+import fr.univnantes.hermes.api.MQTT;
 import net.sf.xenqtt.client.*;
 import net.sf.xenqtt.message.ConnectReturnCode;
 import net.sf.xenqtt.message.QoS;
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class Adapteurxenqtt implements Mqtt{
+public class XenqttAdapter implements MQTT {
     private String broker;
     private String clientId;
     private AsyncMqttClient client;
@@ -41,7 +42,7 @@ public class Adapteurxenqtt implements Mqtt{
         }
     };
 
-    public Adapteurxenqtt() {
+    public XenqttAdapter() {
         this.broker = "tcp://mqtt-broker:1883";
         this.clientId = "test";
         this.topic = "MQTT Examples";
