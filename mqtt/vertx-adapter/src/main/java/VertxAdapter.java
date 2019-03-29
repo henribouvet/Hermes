@@ -1,3 +1,4 @@
+import fr.univnantes.hermes.api.MQTT;
 import io.netty.handler.codec.mqtt.MqttQoS;
 import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
@@ -6,12 +7,12 @@ import io.vertx.mqtt.MqttClient;
 import static io.vertx.core.Vertx.vertx;
 
 //fixer le constructeur
-public class Adapteurvertx implements Mqtt {
+public class VertxAdapter implements MQTT {
     private MqttClient client;
     private String broker;
     private int port;
 
-    public Adapteurvertx() {
+    public VertxAdapter() {
         client = MqttClient.create(vertx());
         this.broker = "iot.eclipse.org";
         this.port = 1883;
