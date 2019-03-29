@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>mqtt</artifactId>
+    <packaging>pom</packaging>
     <build>
         <plugins>
             <plugin>
@@ -22,38 +23,16 @@
             </plugin>
         </plugins>
     </build>
+    <modules>
+        <module>paho-adapter</module>
+        <module>xenqtt-adapter</module>
+        <module>fusesource-adapter</module>
+        <module>vertx-adapter</module>
+    </modules>
 
-    <repositories>
-        <repository>
-            <id>Eclipse Paho Repo</id>
-            <url>https://repo.eclipse.org/content/repositories/paho-releases/</url>
-        </repository>
-    </repositories>
 
     <dependencies>
-        <dependency>
-            <groupId>org.eclipse.paho</groupId>
-            <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
-            <version>1.2.1</version>
-        </dependency>
 
-        <dependency>
-            <groupId>net.sf.xenqtt</groupId>
-            <artifactId>xenqtt</artifactId>
-            <version>0.9.6</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>vertx-mqtt</artifactId>
-            <version>3.6.3</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.fusesource.mqtt-client</groupId>
-            <artifactId>mqtt-client</artifactId>
-            <version>1.12</version>
-        </dependency>
 
     </dependencies>
 
