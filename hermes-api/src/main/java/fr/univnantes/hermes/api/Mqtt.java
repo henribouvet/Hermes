@@ -1,3 +1,5 @@
+package fr.univnantes.hermes.api;
+
 public interface Mqtt {
     public void connect();
 

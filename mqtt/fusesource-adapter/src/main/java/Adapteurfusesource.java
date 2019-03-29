@@ -1,9 +1,10 @@
+import fr.univnantes.hermes.api.Mqtt;
 import org.fusesource.mqtt.client.BlockingConnection;
 import org.fusesource.mqtt.client.MQTT;
 import org.fusesource.mqtt.client.QoS;
 import org.fusesource.mqtt.client.Topic;
 
-public class Adapteurfusesource implements Mqtt{
+public class Adapteurfusesource implements Mqtt {
     private MQTT client;
     private String broker;
     private String clientId;
