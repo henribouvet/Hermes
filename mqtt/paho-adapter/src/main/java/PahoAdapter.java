@@ -1,11 +1,12 @@
-import fr.univnantes.hermes.api.MQTT;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import java.util.UUID;
 
-public class PahoAdapter implements MQTT {
+
+public class Adapteurpaho implements Mqtt {
     private MqttClient client;
     private String broker;
     private String clientId;
@@ -14,9 +15,9 @@ public class PahoAdapter implements MQTT {
     //    private String content = "Message from MqttPublishSample";
     MemoryPersistence persistence = new MemoryPersistence(); //sauvegarde memoire
 
-    public PahoAdapter() {
+    public Adapteurpaho() {
         this.broker = "tcp://iot.eclipse.org:1883";
-        this.clientId = "test";
+        this.clientId = "test" + UUID.randomUUID().toString();;
         this.topic = "MQTT Examples";
     }
 

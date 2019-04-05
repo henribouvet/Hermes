@@ -46,7 +46,9 @@ public class FusesourceAdapter implements MQTT {
         }
 
         try {
+            System.out.println("Publishing message: "+content);
             connection.publish(topic, content.getBytes(), qos, false);
+            System.out.println("Message published");
         } catch (Exception e) {
             System.out.println("error on publish " + e);
         }
