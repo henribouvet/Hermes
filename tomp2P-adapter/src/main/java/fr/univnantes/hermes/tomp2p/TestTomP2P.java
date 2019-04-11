@@ -14,8 +14,10 @@ public class TestTomP2P {
         TomP2PService toms = new TomP2PService();
         DHT dhttest = toms.createDHT();
         Number160 num = new Number160(14);
-        dhttest.store(num,"ta daronne");
-        String res = String.valueOf(dhttest.retrieve(num));
+        dhttest.store(14,"ta daronne");
+
+        System.out.println("La valeur retournée :"+dhttest.retrieve(num));
+        Object res = dhttest.retrieve(num);
         Assert.assertEquals("ta daronne",res); ;
 
     }
