@@ -10,4 +10,4 @@ It's still in developpement but later will allow switching between a *[kademlia 
 
 ## Installation
 
-For Kademlia, we [zipped the implementation](https://uncloud.univ-nantes.fr/index.php/s/Ac3M6SKR6MCrqnq), so you have to unzip it, go to the Kademlia folder through command line, and execute `mvn clean install`.
+For Kademlia, we [forked the implementation](https://github.com/sunye/Kademlia), so you have to download it, go to the Kademlia folder through command line, and execute `mvn clean install`.
