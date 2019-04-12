@@ -11,20 +11,36 @@ public class VertxAdapter implements MQTT {
     private MqttClient client;
     private String broker;
     private int port;
+    private boolean connecteda;
 
     public VertxAdapter() {
         client = MqttClient.create(vertx());
         this.broker = "iot.eclipse.org";
         this.port = 1883;
+        this.connecteda = false;
     }
 
     public void connect() {
         client.connect(port, broker, s -> {
-            client.disconnect();
+            if (s.succeeded()) {
+                System.out.println("Connected to a server");
+
+                client.publish(
+                        "/my_topic",
+                        Buffer.buffer("Hello Vert.x MQTT Client"),
+                        MqttQoS.AT_MOST_ONCE,
+                        false,
+                        false,
+                        x -> client.disconnect(d -> System.out.println("Disconnected from server")));
+            } else {
+                System.out.println("Failed to connect to a server");
+                System.out.println(s.cause());
+            }
         });
     }
 
     public void publish(String topic, String content, int Qospub) {
+        while(this.connecteda)
         //MqttQoS qos = qos.valueOf(Qospub);
         client.publish("topic", Buffer.buffer(content), MqttQoS.AT_MOST_ONCE, false, false); //last 2 is duplicate, needs to be retained?
     }

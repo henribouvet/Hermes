@@ -82,7 +82,9 @@ public class XenqttAdapter implements MQTT {
         }
 
         try {
+            System.out.println("Publishing message: "+content);
             client.publish(new PublishMessage(topic, qos, content));
+            System.out.println("Message published");
         } catch (Exception e) {
             System.out.println("An exception prevented the publishing of the full catalog." + e);
         }
@@ -114,6 +116,7 @@ public class XenqttAdapter implements MQTT {
         }
 
         try {
+            System.out.println("Publishing message: "+topics);
             client.subscribe(subscriptions);
         } catch (Exception e){
             System.out.println("An exception prevented the full subscribing." + e);
@@ -122,7 +125,9 @@ public class XenqttAdapter implements MQTT {
 
     public void unsubscribe(String[] topics) {
         try {
+            System.out.println("Publishing message: "+topics);
             client.unsubscribe(topics);
+            System.out.println("Unsubscribed");
         } catch (Exception e){
             System.out.println("An exception prevented the full unsubscribing." + e);
         }
@@ -130,6 +135,7 @@ public class XenqttAdapter implements MQTT {
 
     public void disconnect() {
         try {
+            System.out.println("Disconnecting");
             client.disconnect();
             System.out.println("Disconnected");
         } catch (Exception e) {

@@ -19,10 +19,12 @@ public class FusesourceAdapter implements MQTT {
 
     public void connect() {
         try {
+            System.out.println("Connecting to broker: "+broker);
             connection = client.blockingConnection();
             client.setClientId(clientId);
             client.setHost(broker);
             connection.connect();
+            System.out.println("Connected");
         } catch (Exception e) {
             System.out.println("erreur connexion" + e);
         }
@@ -77,7 +79,9 @@ public class FusesourceAdapter implements MQTT {
         }
 
         try {
+            System.out.println("Subscribing to " + topics);
             connection.subscribe(sujets);
+            System.out.println("Subscribed");
         } catch (Exception e) {
             System.out.println("error on subscribe");
         }
@@ -85,14 +89,18 @@ public class FusesourceAdapter implements MQTT {
 
     public void unsubscribe(String[] topics) {
         try {
+            System.out.println("Unsubscribing to " + topics);
             connection.unsubscribe(topics);
+            System.out.println("Unsubscribed");
         } catch (Exception e) {
             System.out.println("error on unsubscribe " + e);
         }
     }
     public void disconnect() {
         try {
+            System.out.println("Disconnecting");
             connection.disconnect();
+            System.out.println("Disconnected");
         } catch (Exception e) {
             System.out.println("Disconnect issue " + e);
         }
