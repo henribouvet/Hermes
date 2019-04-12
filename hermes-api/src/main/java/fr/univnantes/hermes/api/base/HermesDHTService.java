@@ -13,6 +13,11 @@ public class HermesDHTService implements DHTService {
         return this.createDHT((String)null);
     }
 
+    @Override
+    public void shutDownServer() {
+        
+    }
+
     public <K extends Serializable, V extends Serializable> DHT<K, V> createDHT(String ownerId) throws IOException {
         return new HermesDHT(ownerId);
     }

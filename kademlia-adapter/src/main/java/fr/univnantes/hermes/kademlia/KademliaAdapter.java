@@ -29,8 +29,11 @@ public class KademliaAdapter implements DHT<Serializable, Serializable> {
 
     @ParametersAreNonnullByDefault
     public Serializable store(Serializable key, Serializable value) throws IOException {
-        KadContent content = new DHTContentImpl(new KademliaId((byte[]) key), value.toString());
-        JKademliaStorageEntry entry = new JKademliaStorageEntry(content, new StorageEntryMetadata(content));
+        //KadContent content = new DHTContentImpl(new KademliaId((byte[]) key), value.toString());
+        //KadContent content = new DHTContentImpl(new KademliaId((byte[]) key), getOwnerId());
+        KadContent content = new DHTContentImpl(getOwnerId(), value.toString());
+        JKademliaStorageEntry entry = new JKademliaStorageEntry(content);
+
         this.kad.put(entry);
         // To get the usable KademliaId
         //return content.getKey();
@@ -43,7 +46,7 @@ public class KademliaAdapter implements DHT<Serializable, Serializable> {
     @ParametersAreNonnullByDefault
     public Serializable retrieve(Serializable key) throws IOException {
         GetParameter gp = new GetParameter((KademliaId) key, DHTContentImpl.TYPE);
-        //gp.setOwnerId(getOwnerId());
+        gp.setOwnerId(getOwnerId());
         try {
              String content = new DHTContentImpl().fromSerializedForm(kad.get(gp).getContent()).toString();
 
@@ -72,5 +75,11 @@ public class KademliaAdapter implements DHT<Serializable, Serializable> {
     public String getOwnerId() {
         return this.kad.getOwnerId();
     }
+
+    public void shutDownServer() {
+        kad.getServer().shutdown();
+    }
+
+
 
 }

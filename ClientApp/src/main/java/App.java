@@ -1,4 +1,5 @@
 import fr.univnantes.hermes.api.DHT;
+import fr.univnantes.hermes.api.DHTService;
 import fr.univnantes.hermes.api.api.Key20;
 import fr.univnantes.hermes.kademlia.KademliaService;
 import net.tomp2p.dht.FutureDHT;
@@ -13,12 +14,15 @@ public class App {
         System.out.println("Hello World !");
         Peer peer;
         //FutureDHT<net.tomp2p.futures.BaseFuture> dht;
-        DHT kademlia = new KademliaService().createDHT();
+        DHTService service = new KademliaService();
+        DHT kademlia = service.createDHT();
         Key20 key = new Key20();
         Serializable k1 = kademlia.store(key.get(),"Hey");
         Serializable k2 = kademlia.store(new Key20().get(),"Brother");
         Serializable v1 = kademlia.retrieve(k1);
         Serializable v2 = kademlia.retrieve(k2);
         System.out.println(v1);
+        System.out.println(v2);
+        service.shutDownServer();
     }
 }

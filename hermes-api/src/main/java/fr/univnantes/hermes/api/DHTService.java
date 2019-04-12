@@ -31,5 +31,7 @@ public interface DHTService {
      * @return
      */
     <K extends Serializable, V extends Serializable> DHT<K,V> createDHT() throws IOException;
+
+    void shutDownServer();
 }
 

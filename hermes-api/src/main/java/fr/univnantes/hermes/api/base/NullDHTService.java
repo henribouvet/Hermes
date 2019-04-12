@@ -10,4 +10,9 @@ public class NullDHTService implements DHTService {
     public <K extends Serializable, V extends Serializable> DHT<K, V> createDHT() {
         return new NullDHT<K, V>();
     }
+
+    @Override
+    public void shutDownServer() {
+
+    }
 }

@@ -15,15 +15,22 @@ import java.util.Arrays;
 
 public class KademliaService implements DHTService {
     private int ownerId = 0;
+    KademliaAdapter adapter;
 
     public KademliaService() {
     }
 
     public DHT createDHT() throws IOException {
-        return new KademliaAdapter();
+        adapter = new KademliaAdapter();
+        return adapter;
     }
 
     private String nextOwnerId() {
         return "owner" + this.ownerId++;
+    }
+
+    @Override
+    public void shutDownServer() {
+        adapter.shutDownServer();
     }
 }
