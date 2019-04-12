@@ -17,5 +17,10 @@
             <artifactId>xenqtt</artifactId>
             <version>0.9.6</version>
         </dependency>
+        <dependency>
+            <groupId>org.univ-nantes</groupId>
+            <artifactId>hermes-api</artifactId>
+            <version>0.1.0</version>
+        </dependency>
     </dependencies>
 </project>

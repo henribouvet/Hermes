@@ -1,18 +1,17 @@
-import fr.univnantes.hermes.api.Mqtt;
+import fr.univnantes.hermes.api.MQTT;
 import org.fusesource.mqtt.client.BlockingConnection;
-import org.fusesource.mqtt.client.MQTT;
 import org.fusesource.mqtt.client.QoS;
 import org.fusesource.mqtt.client.Topic;
 
-public class Adapteurfusesource implements Mqtt {
-    private MQTT client;
+public class FusesourceAdapter implements MQTT {
+    private org.fusesource.mqtt.client.MQTT client;
     private String broker;
     private String clientId;
     private int Qos = 2;
     private String topic;
     private BlockingConnection connection;
 
-    public Adapteurfusesource() {
+    public FusesourceAdapter() {
         this.broker = "tcp://iot.eclipse.org:1883";
         this.clientId = "test";
         this.topic = "MQTT Examples";
@@ -20,10 +19,12 @@ public class Adapteurfusesource implements Mqtt {
 
     public void connect() {
         try {
+            System.out.println("Connecting to broker: "+broker);
             connection = client.blockingConnection();
             client.setClientId(clientId);
             client.setHost(broker);
             connection.connect();
+            System.out.println("Connected");
         } catch (Exception e) {
             System.out.println("erreur connexion" + e);
         }
@@ -47,7 +48,9 @@ public class Adapteurfusesource implements Mqtt {
         }
 
         try {
+            System.out.println("Publishing message: "+content);
             connection.publish(topic, content.getBytes(), qos, false);
+            System.out.println("Message published");
         } catch (Exception e) {
             System.out.println("error on publish " + e);
         }
@@ -76,7 +79,9 @@ public class Adapteurfusesource implements Mqtt {
         }
 
         try {
+            System.out.println("Subscribing to " + topics);
             connection.subscribe(sujets);
+            System.out.println("Subscribed");
         } catch (Exception e) {
             System.out.println("error on subscribe");
         }
@@ -84,14 +89,18 @@ public class Adapteurfusesource implements Mqtt {
 
     public void unsubscribe(String[] topics) {
         try {
+            System.out.println("Unsubscribing to " + topics);
             connection.unsubscribe(topics);
+            System.out.println("Unsubscribed");
         } catch (Exception e) {
             System.out.println("error on unsubscribe " + e);
         }
     }
     public void disconnect() {
         try {
+            System.out.println("Disconnecting");
             connection.disconnect();
+            System.out.println("Disconnected");
         } catch (Exception e) {
             System.out.println("Disconnect issue " + e);
         }

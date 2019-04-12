@@ -1,3 +1,4 @@
+import fr.univnantes.hermes.api.MQTT;
 import net.sf.xenqtt.client.*;
 import net.sf.xenqtt.message.ConnectReturnCode;
 import net.sf.xenqtt.message.QoS;
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class Adapteurxenqtt implements Mqtt{
+public class XenqttAdapter implements MQTT {
     private String broker;
     private String clientId;
     private AsyncMqttClient client;
@@ -41,7 +42,7 @@ public class Adapteurxenqtt implements Mqtt{
         }
     };
 
-    public Adapteurxenqtt() {
+    public XenqttAdapter() {
         this.broker = "tcp://mqtt-broker:1883";
         this.clientId = "test";
         this.topic = "MQTT Examples";
@@ -81,7 +82,9 @@ public class Adapteurxenqtt implements Mqtt{
         }
 
         try {
+            System.out.println("Publishing message: "+content);
             client.publish(new PublishMessage(topic, qos, content));
+            System.out.println("Message published");
         } catch (Exception e) {
             System.out.println("An exception prevented the publishing of the full catalog." + e);
         }
@@ -113,6 +116,7 @@ public class Adapteurxenqtt implements Mqtt{
         }
 
         try {
+            System.out.println("Publishing message: "+topics);
             client.subscribe(subscriptions);
         } catch (Exception e){
             System.out.println("An exception prevented the full subscribing." + e);
@@ -121,7 +125,9 @@ public class Adapteurxenqtt implements Mqtt{
 
     public void unsubscribe(String[] topics) {
         try {
+            System.out.println("Publishing message: "+topics);
             client.unsubscribe(topics);
+            System.out.println("Unsubscribed");
         } catch (Exception e){
             System.out.println("An exception prevented the full unsubscribing." + e);
         }
@@ -129,6 +135,7 @@ public class Adapteurxenqtt implements Mqtt{
 
     public void disconnect() {
         try {
+            System.out.println("Disconnecting");
             client.disconnect();
             System.out.println("Disconnected");
         } catch (Exception e) {

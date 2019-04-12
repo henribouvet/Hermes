@@ -3,6 +3,8 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import java.util.UUID;
+
 
 public class Adapteurpaho implements Mqtt {
     private MqttClient client;
@@ -15,7 +17,7 @@ public class Adapteurpaho implements Mqtt {
 
     public Adapteurpaho() {
         this.broker = "tcp://iot.eclipse.org:1883";
-        this.clientId = "test";
+        this.clientId = "test" + UUID.randomUUID().toString();;
         this.topic = "MQTT Examples";
     }
 

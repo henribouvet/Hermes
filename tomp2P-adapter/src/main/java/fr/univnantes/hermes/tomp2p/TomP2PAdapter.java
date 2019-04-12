@@ -1,22 +1,20 @@
+package fr.univnantes.hermes.tomp2p;
 
-        package fr.univnantes.hermes.tomp2p;
+import fr.univnantes.hermes.api.base.HermesDHTService;
+import net.tomp2p.dht.*;
+import net.tomp2p.futures.BaseFuture;
+import net.tomp2p.p2p.Peer;
+import fr.univnantes.hermes.api.DHT;
+import net.tomp2p.p2p.PeerBuilder;
+import net.tomp2p.peers.Number160;
 
-        import fr.univnantes.hermes.api.base.HermesDHTService;
-        import net.tomp2p.dht.FutureDHT;
-        import net.tomp2p.dht.FutureGet;
-        import net.tomp2p.dht.PeerDHT;
-        import net.tomp2p.futures.BaseFuture;
-        import net.tomp2p.p2p.Peer;
-        import fr.univnantes.hermes.api.DHT;
-        import net.tomp2p.p2p.PeerBuilder;
-        import net.tomp2p.peers.Number160;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.Random;
+import java.util.concurrent.Future;
 
-        import java.io.IOException;
-        import java.io.Serializable;
-        import java.util.Random;
-        import java.util.concurrent.Future;
-        import net.tomp2p.dht.DHTBuilder;
-        import net.tomp2p.storage.Data;
+import net.tomp2p.peers.Number640;
+import net.tomp2p.storage.Data;
 
 public class TomP2PAdapter implements DHT<Serializable, Serializable> {
 
@@ -28,11 +26,10 @@ public class TomP2PAdapter implements DHT<Serializable, Serializable> {
     public TomP2PAdapter(PeerDHT peerdht) throws IOException {
 
         this.peer = peerdht;
-        //  dhtbuilder = new DHTBuilder(peer) ;
+      //  dhtbuilder = new DHTBuilder(peer) ;
     }
 
     public boolean store(Serializable data) throws IOException {
-
         //return this.tomp2pDHT.store(this.tomp2pDHT.getOwnerId(), data.toString());
         return false;
     }
@@ -55,23 +52,31 @@ public class TomP2PAdapter implements DHT<Serializable, Serializable> {
         return false;
     }
 
-    public boolean store(Serializable key, Serializable value) throws IOException {
-        if (key.getClass() == Number160.class) {
-            f = peer.put((Number160) key).data(new Data(value)).start();
-        }else{
-            f = peer.put(new Number160((Integer) key)).data(new Data(value)).start();
-        }
+    public Serializable store(Serializable key, Serializable value) throws IOException {
+        Number160 num = new Number160((int)key);
+        Data dt = new Data();
+
+        dhtbuilder = peer.put(Number160.createHash((int)key)).keyObject(Number160.createHash((int)key),value)/*.setObject(“hello world”).build()*/;
+        dhtbuilder.start();
+
+       // PutBuilder testputbuilder = new PutBuilder(peer,num);
+       // testputbuilder.start();
+        //testputbuilder.data(value.toString());
+        //peer.put(num).data(.value.toString());
         //peer.store(Number160.createHash(key)).setObject(value).build();
-        return true;
+        return num;
 
     }
 
     public Serializable retrieve(Serializable key) throws IOException {
         //FutureDHT<Serializable> answer = peer.get(Number160.createHash(“key”)).build();
         System.out.println("VALEUR DE NUMBER KEY"+(Number160)key);
+
         fg = peer.get((Number160)key).start();
-        System.out.println("VALEUR DE DATA"+fg.data());
-        return (Serializable) fg.data(); //new FutureAdapter(answer);
+
+        System.out.println("FG VIDE ? "+fg.dataMap());
+       //System.out.println("VALEUR DE DATA"+fg.data().toString());
+        return (Serializable) fg.data().toString(); //new FutureAdapter(answer);
     }
 
     public void remove(Serializable key) throws IOException {

@@ -24,6 +24,11 @@
             <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
             <version>1.2.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.univ-nantes</groupId>
+            <artifactId>hermes-api</artifactId>
+            <version>0.1.0</version>
+        </dependency>
     </dependencies>
     
 </project>
