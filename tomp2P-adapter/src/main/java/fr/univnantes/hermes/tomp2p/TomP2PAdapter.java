@@ -22,6 +22,7 @@ public class TomP2PAdapter implements DHT<Serializable, Serializable> {
     PeerDHT peer;
     FutureDHT f;
     FutureGet fg;
+    FuturePut futurePut;
 
     public TomP2PAdapter(PeerDHT peerdht) throws IOException {
 
@@ -34,12 +35,12 @@ public class TomP2PAdapter implements DHT<Serializable, Serializable> {
         return false;
     }
 
-    public String retrieve(Object key) {
+   /* public String retrieve(Object key) {
         fg = peer.get((Number160) key).start();
 
         return fg.data().toString();
     }
-
+*/
     public boolean put(Object data) {
         return false;
     }
@@ -56,8 +57,15 @@ public class TomP2PAdapter implements DHT<Serializable, Serializable> {
         Number160 num = new Number160((int)key);
         Data dt = new Data();
 
-        dhtbuilder = peer.put(Number160.createHash((int)key)).keyObject(Number160.createHash((int)key),value)/*.setObject(“hello world”).build()*/;
-        dhtbuilder.start();
+        System.out.println("VALEUR DE NUMBER KEY STORE = "+Number160.createHash((int)key));
+
+        futurePut = peer.put(Number160.createHash((int)key)).keyObject(Number160.createHash((int)key),value).start()/*.setObject(“hello world”).build()*/;
+
+        while(!futurePut.isSuccess()){}
+
+            System.out.println("CA SUCCESS??"+ futurePut.isSuccess());
+        System.out.println("CONTENU :::::"+ futurePut.result());
+        //dhtbuilder.start();
 
        // PutBuilder testputbuilder = new PutBuilder(peer,num);
        // testputbuilder.start();
@@ -70,12 +78,18 @@ public class TomP2PAdapter implements DHT<Serializable, Serializable> {
 
     public Serializable retrieve(Serializable key) throws IOException {
         //FutureDHT<Serializable> answer = peer.get(Number160.createHash(“key”)).build();
-        System.out.println("VALEUR DE NUMBER KEY"+(Number160)key);
+        System.out.println("VALEUR DE NUMBER KEY RETRIEVE = "+Number160.createHash((int)key));
+        //Number160 num = new Number160((int)key);
 
-        fg = peer.get((Number160)key).start();
+        fg = peer.get(Number160.createHash((int)key)).start();
+        FutureAdapter fut = new FutureAdapter(fg);
+        while( !fg.isSuccess());
+        System.out.println("FG Boolean ? "+fut.isDone());
 
-        System.out.println("FG VIDE ? "+fg.dataMap());
+
+        System.out.println("FG VIDE ? "+fg.futuresCompleted().object());
        //System.out.println("VALEUR DE DATA"+fg.data().toString());
+
         return (Serializable) fg.data().toString(); //new FutureAdapter(answer);
     }
 

@@ -8,8 +8,10 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 public class FutureAdapter<T> implements Future<T> {
+    FutureDHT resp;
 
     public FutureAdapter(FutureDHT futureDHT) {
+        resp = futureDHT;
     }
 
     public boolean cancel(boolean mayInterruptIfRunning) {
@@ -21,7 +23,9 @@ public class FutureAdapter<T> implements Future<T> {
     }
 
     public boolean isDone() {
-        return false;
+
+
+        return resp.isCompleted();
     }
 
     public T get() throws InterruptedException, ExecutionException {

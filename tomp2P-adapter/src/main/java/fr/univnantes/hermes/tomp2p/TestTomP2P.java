@@ -16,7 +16,7 @@ public class TestTomP2P {
         Number160 num = new Number160(14);
         dhttest.store(14,"ta daronne");
 
-        System.out.println("La valeur retournée :"+dhttest.retrieve(num));
+        System.out.println("La valeur retournée :"+dhttest.retrieve(14));
         Object res = dhttest.retrieve(num);
         Assert.assertEquals("ta daronne",res); ;
 
