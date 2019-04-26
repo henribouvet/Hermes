@@ -69,6 +69,7 @@ public class KademliaAdapter implements DHT<Serializable, Serializable> {
 
     @ParametersAreNonnullByDefault
     public void remove(Serializable key) {
+        // TODO : See how to support remove operation with a Kademlia implementation
     }
 
 

@@ -59,8 +59,9 @@ public class TomP2PAdapter implements DHT<Serializable, Serializable> {
 
         System.out.println("VALEUR DE NUMBER KEY STORE = "+Number160.createHash((int)key));
 
-        futurePut = peer.put(Number160.createHash((int)key)).keyObject(Number160.createHash((int)key),value).start()/*.setObject(“hello world”).build()*/;
+        //futurePut = peer.put(Number160.createHash((int)key)).keyObject(Number160.createHash((int)key),value).start()/*.setObject(“hello world”).build()*/;
 
+        futurePut = peer.put(Number160.createHash((int)key)).data(new Data(value)).start();
         while(!futurePut.isSuccess()){}
 
             System.out.println("CA SUCCESS??"+ futurePut.isSuccess());
@@ -78,19 +79,27 @@ public class TomP2PAdapter implements DHT<Serializable, Serializable> {
 
     public Serializable retrieve(Serializable key) throws IOException {
         //FutureDHT<Serializable> answer = peer.get(Number160.createHash(“key”)).build();
-        System.out.println("VALEUR DE NUMBER KEY RETRIEVE = "+Number160.createHash((int)key));
+        System.out.println("VALEUR DE NUMBER KEY RETRIEVE = " + Number160.createHash((int)key));
         //Number160 num = new Number160((int)key);
 
-        fg = peer.get(Number160.createHash((int)key)).start();
+        //fg = peer.get(Number160.createHash((int)key)).start();
+        GetBuilder get = peer.get(Number160.createHash((int)key));
+        fg = get.start();
         FutureAdapter fut = new FutureAdapter(fg);
-        while( !fg.isSuccess());
-        System.out.println("FG Boolean ? "+fut.isDone());
+        //while( !fg.isSuccess());
+        fg.awaitUninterruptibly();
+        System.out.println("FG Boolean ? "+fg.isCompleted());
 
 
         System.out.println("FG VIDE ? "+fg.futuresCompleted().object());
        //System.out.println("VALEUR DE DATA"+fg.data().toString());
 
-        return (Serializable) fg.data().toString(); //new FutureAdapter(answer);
+        try {
+            return (Serializable) fg.data().object(); //new FutureAdapter(answer);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void remove(Serializable key) throws IOException {

@@ -14,11 +14,12 @@ public class TestTomP2P {
         TomP2PService toms = new TomP2PService();
         DHT dhttest = toms.createDHT();
         Number160 num = new Number160(14);
-        dhttest.store(14,"ta daronne");
+        dhttest.store(14,"bittersweet");
 
-        System.out.println("La valeur retournée :"+dhttest.retrieve(14));
-        Object res = dhttest.retrieve(num);
-        Assert.assertEquals("ta daronne",res); ;
+        //System.out.println("La valeur retournée :"+dhttest.retrieve(14));
+        Object res = dhttest.retrieve(14);
+        System.out.println(res.toString());
+        Assert.assertEquals("bittersweet",res.toString());
 
     }
 
