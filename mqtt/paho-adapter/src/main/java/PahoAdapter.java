@@ -57,8 +57,25 @@ public class Adapteurpaho implements Mqtt {
         }
     }
 
-    public void subscribe(String[] topics) {
+    public void publish(String topic, String content) {
+        MqttMessage message = new MqttMessage(content.getBytes());
+        message.setQos(0);
 
+        try {
+            System.out.println("Publishing message: "+content);
+            client.publish(topic, message);
+            System.out.println("Message published");
+        } catch(MqttException me) {
+            System.out.println("reason "+me.getReasonCode());
+            System.out.println("msg "+me.getMessage());
+            System.out.println("loc "+me.getLocalizedMessage());
+            System.out.println("cause "+me.getCause());
+            System.out.println("excep "+me);
+            me.printStackTrace();
+        }
+    }
+
+    public void subscribe(String[] topics) {
         try {
             client.subscribe(topics);
         } catch(MqttException me) {
@@ -98,6 +115,18 @@ public class Adapteurpaho implements Mqtt {
         }
     }
 
+    public void unsubscribe(String topic) {
+        try {
+            client.unsubscribe(topic);
+        } catch(MqttException me) {
+            System.out.println("reason "+me.getReasonCode());
+            System.out.println("msg "+me.getMessage());
+            System.out.println("loc "+me.getLocalizedMessage());
+            System.out.println("cause "+me.getCause());
+            System.out.println("excep "+me);
+            me.printStackTrace();
+        }
+    }
     public void disconnect() {
         try {
             client.disconnect();
@@ -111,12 +140,4 @@ public class Adapteurpaho implements Mqtt {
             me.printStackTrace();
         }
     }
-
-    public void connack(){};
-    public void puback(){};
-    public void pubrel(){};
-    public void pubcomp(){};
-    public void suback(){};
-    public void pingreq(){};
-
 }

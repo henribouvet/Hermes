@@ -4,6 +4,9 @@ import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.mqtt.MqttClient;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static io.vertx.core.Vertx.vertx;
 
 //fixer le constructeur
@@ -45,11 +48,28 @@ public class VertxAdapter implements MQTT {
         client.publish("topic", Buffer.buffer(content), MqttQoS.AT_MOST_ONCE, false, false); //last 2 is duplicate, needs to be retained?
     }
 
+    public void publish(String topic, String content) {
+        try {
+            client.publish("topic", Buffer.buffer(content), MqttQoS.AT_MOST_ONCE, false, false); //last 2 is duplicate, needs to be retained?
+        } catch(Exception e) {
+            System.out.println("Erreur publish : " + e );
+        }
+    }
+
     public void subscribe(String[] topics, int[] qos) {
         int i = 0;
 
         for (String t : topics) {
             client.subscribe(t, qos[i]);
+            i++;
+        }
+    }
+
+    public void subscribe(String[] topics) {
+        int i = 0;
+
+        for (String t : topics) {
+            client.subscribe(t, 0);
             i++;
         }
     }
@@ -60,6 +80,14 @@ public class VertxAdapter implements MQTT {
         }
     }
 
+    public void unsubscribe(String topic) {
+        List<String> topics = new ArrayList<String>();
+
+        topics.add(topic);
+        for (String t : topics) {
+            client.unsubscribe(t);
+        }
+    }
     public void disconnect() {
         client.disconnect();
     }

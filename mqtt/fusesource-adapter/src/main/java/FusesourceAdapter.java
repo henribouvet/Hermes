@@ -56,6 +56,17 @@ public class FusesourceAdapter implements MQTT {
         }
     }
 
+    public void publish(String topic, String content) {
+        try {
+            System.out.println("Publishing message: "+content);
+            connection.publish(topic, content.getBytes(), QoS.AT_LEAST_ONCE, false);
+            System.out.println("Message published");
+
+        } catch (Exception e) {
+            System.out.println("error on publish " + e);
+        }
+    }
+
     public void subscribe(String[] topics, int[] qos) {
         Topic[] sujets = new Topic[topics.length];
         QoS qosub;
@@ -87,6 +98,19 @@ public class FusesourceAdapter implements MQTT {
         }
     }
 
+    public void subscribe(String topic) {
+        Topic[] topics = new Topic[1];
+        Topic t = new Topic(topic, QoS.AT_LEAST_ONCE);
+        topics[0] = t;
+        try {
+            System.out.println("Subscribed");
+            connection.subscribe(topics);
+            System.out.println("Subscribing");
+        } catch (Exception e) {
+            System.out.println("error on subscribe");
+        }
+    }
+
     public void unsubscribe(String[] topics) {
         try {
             System.out.println("Unsubscribing to " + topics);
@@ -96,6 +120,18 @@ public class FusesourceAdapter implements MQTT {
             System.out.println("error on unsubscribe " + e);
         }
     }
+
+    public void unsubscribe(String topic) {
+        String[] topics = new String[1];
+        topics[0] = topic;
+
+        try {
+            connection.unsubscribe(topics);
+        } catch (Exception e) {
+            System.out.println("error on unsubscribe " + e);
+        }
+    }
+
     public void disconnect() {
         try {
             System.out.println("Disconnecting");

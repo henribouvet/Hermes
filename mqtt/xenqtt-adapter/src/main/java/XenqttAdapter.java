@@ -53,17 +53,29 @@ public class XenqttAdapter implements MQTT {
 
         try {
             client.connect(clientId, true);
+            System.out.println("Connecting to broker: "+broker);
+            connectLatch.await();
             ConnectReturnCode returnCode = connectReturnCode.get();
             if (returnCode == null || returnCode != ConnectReturnCode.ACCEPTED) {
                 // The broker bounced us. We are done.
                 System.out.println("The broker rejected our attempt to connect. Reason: " + returnCode);
                 return;
             }
+            System.out.println("Connected");
         } catch (Exception e) {
             System.out.println("An exception prevented the connection." + e);
         }
     }
 
+    public void publish(String topic, String content) {
+        try {
+            System.out.println("Publishing message: "+content);
+            client.publish(new PublishMessage(topic, QoS.AT_LEAST_ONCE, content));
+            System.out.println("Message published");
+        } catch (Exception e) {
+            System.out.println("An exception prevented the publishing of the full catalog." + e);
+        }
+    }
     public void publish(String topic, String content, int Qospub) {
         QoS qos;
 
@@ -116,7 +128,19 @@ public class XenqttAdapter implements MQTT {
         }
 
         try {
-            System.out.println("Publishing message: "+topics);
+            client.subscribe(subscriptions);
+        } catch (Exception e){
+            System.out.println("An exception prevented the full subscribing." + e);
+        }
+    }
+
+    public void subscribe(String[] topics) {
+        List<Subscription> subscriptions = new ArrayList<Subscription>();
+
+        for (String t: topics) {
+            subscriptions.add(new Subscription(t, QoS.AT_LEAST_ONCE));
+        }
+        try {
             client.subscribe(subscriptions);
         } catch (Exception e){
             System.out.println("An exception prevented the full subscribing." + e);
@@ -125,9 +149,18 @@ public class XenqttAdapter implements MQTT {
 
     public void unsubscribe(String[] topics) {
         try {
-            System.out.println("Publishing message: "+topics);
             client.unsubscribe(topics);
-            System.out.println("Unsubscribed");
+        } catch (Exception e){
+            System.out.println("An exception prevented the full unsubscribing." + e);
+        }
+    }
+
+    public void unsubscribe(String topics) {
+        List<String> topiclist = new ArrayList<String>();
+
+        topiclist.add(topics);
+        try {
+            client.unsubscribe(topiclist);
         } catch (Exception e){
             System.out.println("An exception prevented the full unsubscribing." + e);
         }
@@ -135,7 +168,6 @@ public class XenqttAdapter implements MQTT {
 
     public void disconnect() {
         try {
-            System.out.println("Disconnecting");
             client.disconnect();
             System.out.println("Disconnected");
         } catch (Exception e) {
