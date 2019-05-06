@@ -1,4 +1,4 @@
-package fr.univnantes.hermes.tomp2p;
+import fr.univnantes.hermes.tomp2p.TomP2PService;
 import net.tomp2p.peers.Number160;
 
 import fr.univnantes.hermes.api.DHT;
