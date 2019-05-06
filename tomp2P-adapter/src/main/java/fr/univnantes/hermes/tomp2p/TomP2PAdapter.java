@@ -23,6 +23,7 @@ public class TomP2PAdapter implements DHT<Serializable, Serializable> {
     FutureDHT f;
     FutureGet fg;
     FuturePut futurePut;
+    FutureRemove fr;
 
     public TomP2PAdapter(PeerDHT peerdht) throws IOException {
 
@@ -54,48 +55,21 @@ public class TomP2PAdapter implements DHT<Serializable, Serializable> {
     }
 
     public Serializable store(Serializable key, Serializable value) throws IOException {
-        Number160 num = new Number160((int)key);
-        Data dt = new Data();
-
-        System.out.println("VALEUR DE NUMBER KEY STORE = "+Number160.createHash((int)key));
-
-        //futurePut = peer.put(Number160.createHash((int)key)).keyObject(Number160.createHash((int)key),value).start()/*.setObject(“hello world”).build()*/;
 
         futurePut = peer.put(Number160.createHash((int)key)).data(new Data(value)).start();
-        while(!futurePut.isSuccess()){}
+        futurePut.awaitUninterruptibly();
 
-            System.out.println("CA SUCCESS??"+ futurePut.isSuccess());
-        System.out.println("CONTENU :::::"+ futurePut.result());
-        //dhtbuilder.start();
-
-       // PutBuilder testputbuilder = new PutBuilder(peer,num);
-       // testputbuilder.start();
-        //testputbuilder.data(value.toString());
-        //peer.put(num).data(.value.toString());
-        //peer.store(Number160.createHash(key)).setObject(value).build();
-        return num;
+        return key;
 
     }
 
     public Serializable retrieve(Serializable key) throws IOException {
-        //FutureDHT<Serializable> answer = peer.get(Number160.createHash(“key”)).build();
-        System.out.println("VALEUR DE NUMBER KEY RETRIEVE = " + Number160.createHash((int)key));
-        //Number160 num = new Number160((int)key);
 
-        //fg = peer.get(Number160.createHash((int)key)).start();
-        GetBuilder get = peer.get(Number160.createHash((int)key));
-        fg = get.start();
-        FutureAdapter fut = new FutureAdapter(fg);
-        //while( !fg.isSuccess());
+        fg = peer.get(Number160.createHash((int)key)).start();
         fg.awaitUninterruptibly();
-        System.out.println("FG Boolean ? "+fg.isCompleted());
-
-
-        System.out.println("FG VIDE ? "+fg.futuresCompleted().object());
-       //System.out.println("VALEUR DE DATA"+fg.data().toString());
 
         try {
-            return (Serializable) fg.data().object(); //new FutureAdapter(answer);
+            return (Serializable) fg.data().object();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -103,7 +77,8 @@ public class TomP2PAdapter implements DHT<Serializable, Serializable> {
     }
 
     public void remove(Serializable key) throws IOException {
-
+       fr = peer.remove(Number160.createHash((int)key)).start();
+       fr.awaitUninterruptibly();
     }
     public String getOwnerId() {
         return null;
