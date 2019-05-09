@@ -4,7 +4,6 @@ import fr.univnantes.hermes.api.DHT;
 
 import java.io.Serializable;
 import java.util.*;
-import java.util.concurrent.Future;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 public class HermesDHT<K extends Serializable, V extends Serializable> implements DHT<K, V> {

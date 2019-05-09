@@ -17,7 +17,6 @@ public class NullDHT<K extends Serializable, V extends Serializable> implements 
     }
 
     public void remove(K key) throws IOException {
-
     }
 
     public String getOwnerId() {

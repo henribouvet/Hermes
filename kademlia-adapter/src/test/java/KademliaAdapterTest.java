@@ -34,6 +34,14 @@ class KademliaAdapterTest {
     }
 
 
+    // Just to test if the Key20 is accepted as a key in Kademlia
+    @Test
+    void TestKey20() throws IOException {
+        Key20 key = new Key20();
+        dht.store(key.getString(),"Hey");
+
+    }
+
     @Test
     void TestStoreRetrieve() throws IOException, NoSuchFieldException {
         dht.store(k1.getString(),"Hey");
@@ -52,13 +60,6 @@ class KademliaAdapterTest {
 
         dht.remove(k1.getString());
         assertThrows(NoSuchFieldException.class, () -> dht.retrieve(k1.getString()));
-    }
-
-    @Test
-    void TestKey20() throws IOException {
-        Key20 key = new Key20();
-        dht.store(key.getString(),"Hey");
-
     }
 
 }

@@ -5,9 +5,11 @@ import fr.univnantes.hermes.api.DHT;
 import fr.univnantes.hermes.api.DHTService;
 import fr.univnantes.hermes.api.base.HermesDHTService;
 import kademlia.DefaultConfiguration;
+import kademlia.JKademliaNode;
 import kademlia.dht.JKademliaStorageEntry;
 import kademlia.dht.KademliaDHT;
 import kademlia.dht.KademliaStorageEntryMetadata;
+import kademlia.node.KademliaId;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,7 +23,7 @@ public class KademliaService implements DHTService {
     }
 
     public DHT createDHT() throws IOException {
-        adapter = new KademliaAdapter();
+        adapter = new KademliaAdapter(new JKademliaNode(nextOwnerId(),new KademliaId(),15));
         return adapter;
     }
 

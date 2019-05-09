@@ -22,12 +22,12 @@ import javax.annotation.ParametersAreNonnullByDefault;
  * @param <K> The type of the keys
  * @param <V> The type of the values
  */
-@ParametersAreNonnullByDefault
 public interface DHT<K extends Serializable, V extends Serializable> {
 
     /**
      * Stores an object in this DHT.
      */
+
     @ParametersAreNonnullByDefault
     K store(K key, V value) throws IOException;
 
@@ -35,13 +35,13 @@ public interface DHT<K extends Serializable, V extends Serializable> {
      * Retrieves an object from this DHT.
      */
     @ParametersAreNonnullByDefault
-    Serializable retrieve(K key) throws IOException;
+    Serializable retrieve(K key) throws IOException, NoSuchFieldException;
 
     /**
      * Removes the value store at this key and the key itself from this DHT.
      */
     @ParametersAreNonnullByDefault
-    void remove(K key) throws IOException;
+    void remove(K key) throws IOException, NoSuchFieldException;
 
 
     /**

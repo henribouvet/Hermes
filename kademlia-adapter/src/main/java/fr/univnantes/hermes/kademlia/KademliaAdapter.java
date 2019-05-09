@@ -5,17 +5,16 @@ import kademlia.JKademliaNode;
 import kademlia.dht.*;
 import kademlia.exceptions.ContentNotFoundException;
 import kademlia.node.KademliaId;
-import kademlia.simulations.DHTContentImpl;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.Serializable;
 
 public class KademliaAdapter implements DHT<Serializable, Serializable> {
-    private JKademliaNode kad = new JKademliaNode("owner0",new KademliaId(),15);
+    private JKademliaNode kad;
 
-    public KademliaAdapter() throws IOException {
+    public KademliaAdapter(JKademliaNode node) throws IOException {
+        kad = node;
     }
 
 
@@ -31,7 +30,8 @@ public class KademliaAdapter implements DHT<Serializable, Serializable> {
     public Serializable store(Serializable key, Serializable value) throws IOException {
         //KadContent content = new DHTContentImpl(new KademliaId((byte[]) key), value.toString());
         //KadContent content = new DHTContentImpl(new KademliaId((byte[]) key), getOwnerId());
-        KadContent content = new DHTContentImpl(getOwnerId(), value.toString());
+        DHTContentImpl content = new DHTContentImpl(new KademliaId((String)key),getOwnerId());
+        content.setData(value);
         JKademliaStorageEntry entry = new JKademliaStorageEntry(content);
 
         this.kad.put(entry);
@@ -40,12 +40,16 @@ public class KademliaAdapter implements DHT<Serializable, Serializable> {
         GetParameter gp = new GetParameter(content);
         gp.setType(DHTContentImpl.TYPE);
         gp.setOwnerId(content.getOwnerId());
-        return gp.getKey();
+        return gp.getKey().toString();
     }
 
     @ParametersAreNonnullByDefault
-    public Serializable retrieve(Serializable key) throws IOException {
-        GetParameter gp = new GetParameter((KademliaId) key, DHTContentImpl.TYPE);
+    public Serializable retrieve(Serializable key) throws IOException, NoSuchFieldException {
+        GetParameter gp;
+        if (key.getClass() == String.class)
+            gp = new GetParameter(new KademliaId((String) key), DHTContentImpl.TYPE);
+        else
+            gp = new GetParameter((KademliaId)key, DHTContentImpl.TYPE);
         gp.setOwnerId(getOwnerId());
         try {
              String content = new DHTContentImpl().fromSerializedForm(kad.get(gp).getContent()).toString();
@@ -62,14 +66,37 @@ public class KademliaAdapter implements DHT<Serializable, Serializable> {
              return content.substring(21, bracket);
 
         } catch (ContentNotFoundException e) {
-            e.printStackTrace();
-            return null;
+            throw new NoSuchFieldException();
         }
     }
 
     @ParametersAreNonnullByDefault
-    public void remove(Serializable key) {
-        // TODO : See how to support remove operation with a Kademlia implementation
+    public void remove(Serializable key) throws IOException, NoSuchFieldException {
+        DHTContentImpl c = getContent(key);
+        try {
+            kad.getDHT().remove(c);
+        } catch (ContentNotFoundException e) {
+            throw new NoSuchFieldException();
+        }
+
+    }
+
+    private DHTContentImpl getContent(Serializable key) {
+        GetParameter gp;
+        if (key.getClass() == String.class)
+            gp = new GetParameter(new KademliaId((String) key), DHTContentImpl.TYPE);
+        else
+            gp = new GetParameter((KademliaId)key, DHTContentImpl.TYPE);
+        gp.setOwnerId(getOwnerId());
+        try {
+            DHTContentImpl content = new DHTContentImpl().fromSerializedForm(kad.get(gp).getContent());
+
+            return content;
+
+        } catch (ContentNotFoundException | IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 

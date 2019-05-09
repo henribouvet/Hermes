@@ -1,19 +1,12 @@
 package fr.univnantes.hermes.tomp2p;
 
-import fr.univnantes.hermes.api.base.HermesDHTService;
 import net.tomp2p.dht.*;
-import net.tomp2p.futures.BaseFuture;
-import net.tomp2p.p2p.Peer;
 import fr.univnantes.hermes.api.DHT;
-import net.tomp2p.p2p.PeerBuilder;
 import net.tomp2p.peers.Number160;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.Random;
-import java.util.concurrent.Future;
 
-import net.tomp2p.peers.Number640;
 import net.tomp2p.storage.Data;
 
 public class TomP2PAdapter implements DHT<Serializable, Serializable> {
