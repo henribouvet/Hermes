@@ -19,10 +19,8 @@ public class TestTomP2P {
     public void testaddpeer() throws Exception{
 
 
-        Number160 num = new Number160(14);
         dhttest.store(14,"bittersweet");
 
-        //System.out.println("La valeur retournée :"+dhttest.retrieve(14));
         Object res = dhttest.retrieve(14);
         System.out.println(res.toString());
         Assert.assertEquals("bittersweet",res.toString());
@@ -35,6 +33,21 @@ public class TestTomP2P {
 
         dhttest.remove(14);
         Assert.fail(dhttest.retrieve(14).toString());
+
+    }
+
+    @Test
+    public void testmultiaddpeer() throws Exception{
+
+        dhttest.store(14,"bittersweet");
+        dhttest.store(5,"oui");
+
+        Object res = dhttest.retrieve(14);
+        Object res2 = dhttest.retrieve(5);
+        System.out.println(res.toString());
+        System.out.println(res2.toString());
+        Assert.assertEquals("bittersweet",res.toString());
+        Assert.assertEquals("oui",res2.toString());
 
     }
 
