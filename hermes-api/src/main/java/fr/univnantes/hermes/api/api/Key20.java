@@ -15,7 +15,7 @@ public class Key20 implements Serializable {
     public Key20() {
         value = new byte[20];
         (new Random()).nextBytes(value);
-        data = RandomStringUtils.randomAlphanumeric(20);
+        data = RandomStringUtils.randomNumeric(20);
     }
 
     public byte[] get() {
